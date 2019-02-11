@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Gallery</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
+    </head>
+    <body>
+        <style>
+        .item {
+            float:left;
+            width:220px;
+            margin:10px;
+        }
+        </style>
+        <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+        <strong>Social Image Dashboard:</strong> | <a href="/gallery/">Back to Share page</a>
+        <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+         <form action = "upload" method = "POST" class="form-inline" enctype = "multipart/form-data">
+         <div class="form-group">
+                  <label for="image">Upload new File:</label>
+             <input id="image" type="file" name="image"/>
+         </div>
+         <button class="btn btn-default" type = "submit" >submit</button>
+
+      </form>
+        <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+        <script type="text/javascript" src="static/jquery.min.js"></script>
+        <script type="text/javascript" src="static/jquery.masonry.min.js"></script>
+        <script type="text/javascript" src="static/bootstrap.min.js"></script>
+        <script>
+function myFunction(filename) {
+  var s = prompt("Please enter image new size for resize", "10*20");
+  if (s != null) {
+    window.location.href = "edit_resize?filename="+filename+"&s="+s
+  }
+}
+function myFunction2(filename) {
+  var s = prompt("Please enter crop size for crop image", "10*20");
+  if (s != null) {
+    window.location.href = "edit_crop?filename="+filename+"&s="+s
+  }
+}
+function myFunction3(filename) {
+  var s = prompt("Please enter degree for rotate image:", "45");
+  if (s != null) {
+    window.location.href = "edit_rotate?filename="+filename+"&dg="+s
+  }
+}
+</script>
+        <table>
+
+            {% for image in images %}
+
+        <tr>
+        <td>
+
+            <img class="img" style="width:128px" src="{{ url_for('static', filename=['gallery', image.filename ]|join('/')) }}"/>
+
+            </td>
+            <td>
+
+      {{ image.filename}}
+                </td>
+            <td>
+
+      <a class="btn btn-success" href="doshare?filename={{ url_for('static', filename=['gallery', image.filename ]|join('/')) }}">Share</a>|
+                </td>
+            <td><a class="btn btn-success" href="edit_wb?filename={{ url_for('static', filename=['gallery', image.filename ]|join('/')) }}">B/W</a>|
+                </td>
+            <td>
+                <a class="btn btn-success" href="#" onclick="myFunction2('{{ url_for('static', filename=['gallery', image.filename ]|join('/')) }}')"> Crop</a>|
+                </td>
+            <td><a class="btn btn-success" href="#" onclick="myFunction('{{ url_for('static', filename=['gallery', image.filename ]|join('/')) }}')">resize</a>|
+                </td>
+            <td>
+                <a class="btn btn-success" href="#" onclick="myFunction3('{{ url_for('static', filename=['gallery', image.filename ]|join('/')) }}')">rotate</a>|
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </table>
+    </body>
+</html>

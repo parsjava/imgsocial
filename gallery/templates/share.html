@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Shate Page</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <link href="static/bootstrap.min.css" rel="stylesheet" media="screen">
+    </head>
+    <body>
+        <style>
+        .item {
+            float:left;
+            width:220px;
+            margin:10px;
+        }
+        </style>
+        <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+        <strong>Welcome to Social Image </strong> | <a href="login">Login to dashboard</a>
+        <hr style="width: 100%; color: black; height: 1px; background-color:black;" />
+       <script type="text/javascript" src="static/jquery.min.js"></script>
+        <script type="text/javascript" src="static/jquery.masonry.min.js"></script>
+        <script type="text/javascript" src="static/bootstrap.min.js"></script>
+        <div id="container">
+            <div class="row">
+  <div class="col-sm-12">
+            {% for image in images %}
+
+            <img class="col-sm-3" style="height:200px" src="{{ url_for('static', filename=['gallery_share', image.filename ]|join('/')) }}"/>
+            {% endfor %}
+      </div>
+                </div>
+
+        </div>
+    </body>
+</html>
